@@ -21,7 +21,15 @@ export class NewAccountComponent {
    * Inyección de las dependencias de LoggingService y AccountsService.
    */
   constructor(/*private loggingService: LoggingService,*/
-              private accountsService: AccountsService) { }
+              private accountsService: AccountsService) {
+                /** Ponemos a este componente a la escucha del evento statusUpdated
+                 * Creado en el accounts.service y emitido por el accounts.component
+                 * Lo hacemos con el método 'subscribe' de EventEmitter
+                 */
+                this.accountsService.statusUpdated.subscribe(
+                  (newStatus: string) => alert('New Status: ' + newStatus)
+                );
+              }
 
   onCreateAccount(accountName: string, accountStatus: string) {
     // Aquí hacemos uso de las funciones de los servicios que hemos inyectado
